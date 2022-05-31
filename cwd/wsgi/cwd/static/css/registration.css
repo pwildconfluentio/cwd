@@ -1,0 +1,144 @@
+.reg-input-text input, .reg-input-search input, textarea.reg-input-text {
+    font-size: 1em;
+    line-height: 1.3;
+    font-family: sans-serif;
+    padding: 0.4em;
+    line-height: 1.4em;
+    display: block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: 0;
+}
+legend, .reg-input-text input, .reg-input-search input {
+}
+body, input, select, textarea, button {
+    font-size: 1em;
+    font-family: sans-serif;
+}
+
+.reg-btn {
+    width: 100%;
+    font-size: 16px;
+    margin: 0.5em 0;
+    padding: 0.7em 1em;
+    display: block;
+    position: relative;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+fieldset, .reg-field-contain {
+    font-size: 16px;
+    display: block;
+    margin-inline-start: 10px;
+    margin-inline-end: 10px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+    border-width: 0px !important;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+user agent stylesheet
+input[type="text" i] {
+    padding: 1px 2px;
+}
+user agent stylesheet
+input {
+    writing-mode: horizontal-tb !important;
+    font-style: ;
+    font-variant-ligatures: ;
+    font-variant-caps: ;
+    font-variant-numeric: ;
+    font-variant-east-asian: ;
+    font-weight: ;
+    font-stretch: ;
+    font-size: ;
+    font-family: ;
+    text-rendering: auto;
+    color: fieldtext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    background-color: field;
+    margin: 0em;
+    padding: 1px 2px;
+    border-width: 2px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+}
+.reg-body-a, .reg-page-theme-a .reg-body-inherit, html .reg-bar-a .reg-body-inherit, html .reg-body-a .reg-body-inherit, html body .reg-group-theme-a .reg-body-inherit, html .reg-panel-page-container-a {
+}
+
+.reg-register {
+    display: block;
+    width: 90%;
+    text-align: center;
+    margin: 0.4em 0 0.1em;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+#intro {
+    font-size: 18px;
+}    
+
+.reg-field-contain {
+    display: block;
+    margin: 0.4em 0 0.1em;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.reg-label {
+    display: block;
+    margin: 0.4em 0 0.1em;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+#checkbox-mini-0 {
+    display: block !important;
+    margin: 0.4em 0 0.1em !important;
+    font-weight: 400 !important;
+    font-size: 10px !important;
+}
+
+.reg-overlay-a, .reg-page-theme-a, .reg-page-theme-a .reg-panel-wrapper {
+    background-color: #f9f9f9;
+    border-color: #bbb;
+    color: #333;
+    text-shadow: 0 1px 0 #f3f3f3;
+}
+
+.reg-mobile-viewport {
+    margin: 0;
+    overflow-x: visible;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+html {
+    font-size: 100%;
+}

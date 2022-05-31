@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+{% include 'head.html' %}
+
+<body>
+
+<div data-role="page">
+
+        <div data-role="header">
+                <h1>Confluent Demo</h1>
+        </div><!-- /header -->
+
+        <div role="main" class="ui-content">
+		<p>Thanks {{ firstname }}!</p>
+		<p>You're good to go. I hope you have fun with this little demo and good luck in winning a prize!</p>
+	</div>
+	<div>
+		<a href="/play?0" class="ui-btn">Play Wordle</a>
+        </div><!-- /content -->
+
+</body>
+</html>
+
+

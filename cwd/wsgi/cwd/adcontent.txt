@@ -1,0 +1,26 @@
+a1.jpg,Detect unusual credit card activity,https://developer.confluent.io/tutorials/credit-card-activity/confluent.html
+a1.jpg,Flag unhealthy IoT devices,https://developer.confluent.io/tutorials/internet-of-things/confluent.html
+a1.jpg,Handle corrupted data from Salesforce,https://developer.confluent.io/tutorials/salesforce/confluent.html
+a2.jpg,Match users for online dating,https://developer.confluent.io/tutorials/online-dating/confluent.html
+a2.jpg,Understand user behavior with clickstream data,https://developer.confluent.io/tutorials/clickstream/confluent.html
+a2.jpg,Build customer loyalty programs,https://developer.confluent.io/tutorials/loyalty-rewards/confluent.html
+a2.jpg,Get a full view of a customer’s online journey,https://developer.confluent.io/tutorials/customer-journey/confluent.html
+a3.jpg,Monitor security threats by analyzing and filtering audit logs,https://developer.confluent.io/tutorials/audit-logs/confluent.html
+a3.jpg,Identify firewall deny events,https://developer.confluent.io/tutorials/firewall-splunk/confluent.html
+a3.jpg,Detect a denial-of-service (DDoS) attack,https://developer.confluent.io/tutorials/ddos/confluent.html
+a3.jpg,Detect and analyze SSH attacks,https://developer.confluent.io/tutorials/SSH-attack/confluent.html
+a4.jpg,Optimize omni-channel inventory,https://developer.confluent.io/tutorials/inventory/confluent.html
+a4.jpg,Create personalized banking promotions,https://developer.confluent.io/tutorials/next-best-offer/confluent.html
+a4.jpg,Retrain a machine learning model,https://developer.confluent.io/tutorials/model-retraining/confluent.html
+a4.jpg,Analyze political campaign fundraising performance,https://developer.confluent.io/tutorials/campaign-finance/confluent.html
+a5.jpg,Analyze datacenter power usage,https://developer.confluent.io/tutorials/datacenter/confluent.html
+a5.jpg,Automate instant payment verifications,https://developer.confluent.io/tutorials/payment-status-check/confluent.html
+a5.jpg,Enrich orders with change data capture (CDC),https://developer.confluent.io/tutorials/denormalization/confluent.html
+a5.jpg,Build a dynamic pricing strategy,https://developer.confluent.io/tutorials/dynamic-pricing/confluent.html
+a5.jpg,Assess multi-touch discount code efficacy,https://developer.confluent.io/tutorials/discount-promo/confluent.html
+a6.jpg,Optimize fleet management,https://developer.confluent.io/tutorials/fleet-management/confluent.html
+a6.jpg,Track order shipments in real time,https://developer.confluent.io/tutorials/logistics/confluent.html
+a7.jpg,Create geolocation-based customer alerts and promotions,https://developer.confluent.io/tutorials/location-based-alerting/confluent.html
+a7.jpg,Notify passengers of flight updates,https://developer.confluent.io/tutorials/aviation/confluent.html
+a8.jpg,Integrate legacy messaging systems with Kafka,https://developer.confluent.io/tutorials/messaging-modernization/confluent.html
+a8.jpg,Modernize and offload mainframe data,https://developer.confluent.io/tutorials/mainframe-offload/confluent.html

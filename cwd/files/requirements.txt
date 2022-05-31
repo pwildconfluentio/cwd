@@ -1,0 +1,10 @@
+Flask~=2.0.2
+flask_cors~=3.0.10
+Werkzeug~=2.0.2
+Flask-Limiter~=2.1
+rjsmin~=1.2.0
+rcssmin~=1.1.0
+avro~=1.11.0
+requests
+certifi
+confluent-kafka[avro,json,protobuf]>=1.4.2

@@ -1,0 +1,8 @@
+__pycache__/
+.idea/
+venv/
+.venv/
+wordle.db
+.mypy_cache/
+static/lib/*.js
+static_min/

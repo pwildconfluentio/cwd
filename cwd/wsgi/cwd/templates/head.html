@@ -1,0 +1,49 @@
+    <head> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <link  rel="stylesheet" type="text/css" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+
+    {% include "meta.html" %}
+    <title>Confluent Word Game</title>
+    {% if debug %}
+        <script src="{{ url_for("static", filename="lib/vue.js") }}"></script>
+    {% else %}
+        <script src="{{ url_for("static", filename="lib/vue.min.js") }}"></script>
+    {% endif %}
+    <script src="{{ url_for("static", filename="lib/simple-keyboard.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/wordle.js") }}" defer></script>
+    <script src="{{ url_for("static", filename="js/keyboard.js") }}" defer></script>
+
+    <link href="{{ url_for("static", filename="css/keyboard.css") }}" type="text/css" rel="stylesheet">
+
+
+
+
+        <script type="text/javascript">
+            (function(document,navigator,standalone) {
+                // prevents links from apps from oppening in mobile safari
+                // this javascript must be the first script in your <head>
+                if ((standalone in navigator) && navigator[standalone]) {
+                    var curnode, location=document.location, stop=/^(a|html)$/i;
+                    document.addEventListener('click', function(e) {
+                        curnode=e.target;
+                        while (!(stop).test(curnode.nodeName)) {
+                            curnode=curnode.parentNode;
+                        }
+                        // Condidions to do this only on links to your own app
+                        // if you want all links, use if('href' in curnode) instead.
+                        if('href' in curnode && ( curnode.href.indexOf('http') || ~curnode.href.indexOf(location.host) ) ) {
+                            e.preventDefault();
+                            location.href = curnode.href;
+                        }
+                    },false);
+                }
+            })(document,window.navigator,'standalone');
+        </script>
+
+    </head>

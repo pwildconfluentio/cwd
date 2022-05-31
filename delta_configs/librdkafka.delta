@@ -1,0 +1,7 @@
+bootstrap.servers="pkc-pgq85.us-west-2.aws.confluent.cloud:9092"
+security.protocol=SASL_SSL
+sasl.mechanisms=PLAIN
+sasl.username="PSZLKYYTBXGIWSOQ"
+sasl.password="5zOJKd05XUhyJALQqTYQ7rZVEOQJG4G/xB0GXHHuQqQmMl6iRLc718geSohSvVwr"
+schema.registry.url="https://psrc-qjmzd.us-east-2.aws.confluent.cloud"
+basic.auth.user.info="SZW73KJM4VWTRIKU:gzowOD7VuhAfkZadmwPLrKfnwzGI42HdCkrWqWHVO3GfAbz7VwMcqqCOMJ+xelPb"

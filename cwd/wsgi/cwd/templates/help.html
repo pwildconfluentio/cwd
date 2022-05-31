@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "meta.html" %}
+    <title>Confluent Wordle Demo</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link href="{{ url_for("static", filename="css/keyboard.css") }}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/main.css") }}" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <header>
+    </header>
+    <main>
+        <div class="instructions">
+            <h1>HOW TO PLAY</h1>
+            <p>This demo is based on the NYT <strong>WORDLE</strong> game.</p>
+            <p>Guess the <strong>WORD</strong> in six tries.</p>
+	    <p>Each guess must be a valid five-letter word.</p>
+	    <p>Hit the enter button to submit.</p>
+            <p>After each guess, the color of the tiles will change to show how close your guess was to the word.</p>
+            <div class="examples">
+                <p><strong>Examples</strong></p>
+                <div class="example">
+	            <img src="/static/images/kafka.png" class="center">
+                    <p>The letter <strong>F</strong> is in the word and in the correct spot.</p>
+                </div>
+                <div class="example">
+                    <img src="/static/images/flows.png" class="center">
+                    <p>The letter <strong>L</strong> is in the word but in the wrong spot.</p>
+                </div>
+                <div class="example">
+                    <p>The letters <strong>K</strong>, <strong>A</strong>, <strong>O</strong>, <strong>W</strong> and <strong>S</strong> are not in the word in any spot.</p>
+                </div>
+            </div>
+            <div>
+                <p><strong>Speak to the Confluent team about the competition and how to win!</strong></p>
+            </div>
+            <div class="center">
+                <a href="/play" class="ui-btn">Play</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
