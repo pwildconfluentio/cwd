@@ -128,7 +128,7 @@ print_pass "Topics created"
 
 printf "\n====== Setting up ksqlDB\n"
 
-Pre-flight check of Confluent Cloud credentials specified in $CONFIG_FILE
+# Pre-flight check of Confluent Cloud credentials specified in $CONFIG_FILE
 MAX_WAIT=720
 printf "\n";print_process_start "Waiting up to $MAX_WAIT seconds for Confluent Cloud ksqlDB cluster to be UP"
 retry $MAX_WAIT ccloud::validate_ccloud_ksqldb_endpoint_ready $KSQLDB_ENDPOINT || exit 1
