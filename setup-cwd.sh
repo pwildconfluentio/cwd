@@ -21,8 +21,8 @@ curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.2.2-
 sudo dpkg -i filebeat-8.2.2-amd64.deb && rm filebeat-8.2.2-amd64.deb
 SEDCMD="s/===WEBHOSTNAME===/$WEBHOSTNAME/g"
 sed -e '$SEDCMD' cwd/apache2/sites-available/wordle.conf > wordle.conf
-sudo mv wordle.conf /etc/apache2/sites-available/
-sudo mv cwd/wsgi /var/www/wsgi
+sudo cp wordle.conf /etc/apache2/sites-available/
+sudo cp -r cwd/wsgi /var/www/wsgi
 sudo chown -R www-data:www-data /var/www/wsgi
 sudo a2ensite wordle
 sudo a2enmod rewrite
@@ -126,56 +126,56 @@ print_pass "Topics created"
 # printf "\nSleeping 30 seconds to give the Datagen Source Connectors a chance to start producing messages\n"
 # sleep 30
 
-# printf "\n====== Setting up ksqlDB\n"
+printf "\n====== Setting up ksqlDB\n"
 
-# Pre-flight check of Confluent Cloud credentials specified in $CONFIG_FILE
-# MAX_WAIT=720
-# printf "\n";print_process_start "Waiting up to $MAX_WAIT seconds for Confluent Cloud ksqlDB cluster to be UP"
-# retry $MAX_WAIT ccloud::validate_ccloud_ksqldb_endpoint_ready $KSQLDB_ENDPOINT || exit 1
-# print_pass "Confluent Cloud KSQL is UP"
+Pre-flight check of Confluent Cloud credentials specified in $CONFIG_FILE
+MAX_WAIT=720
+printf "\n";print_process_start "Waiting up to $MAX_WAIT seconds for Confluent Cloud ksqlDB cluster to be UP"
+retry $MAX_WAIT ccloud::validate_ccloud_ksqldb_endpoint_ready $KSQLDB_ENDPOINT || exit 1
+print_pass "Confluent Cloud KSQL is UP"
 
-# printf "Obtaining the ksqlDB App Id\n"
-# CMD="confluent ksql cluster list -o json | jq -r '.[].id'"
-# ksqlDBAppId=$(eval $CMD) \
-  # && print_code_pass -c "$CMD" -m "$ksqlDBAppId" \
-  # || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3))
+printf "Obtaining the ksqlDB App Id\n"
+CMD="confluent ksql cluster list -o json | jq -r '.[].id'"
+ksqlDBAppId=$(eval $CMD) \
+  && print_code_pass -c "$CMD" -m "$ksqlDBAppId" \
+  || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3))
 
-# printf "\nConfiguring ksqlDB ACLs\n"
-# CMD="confluent ksql cluster configure-acls $ksqlDBAppId pageviews users"
-# $CMD \
-  # && print_code_pass -c "$CMD" \
-  # || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3))
+printf "\nConfiguring ksqlDB ACLs\n"
+CMD="confluent ksql cluster configure-acls $ksqlDBAppId pageviews users"
+$CMD \
+  && print_code_pass -c "$CMD" \
+  || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3))
 
-# echo -e "\nSleeping 60 seconds\n"
-# sleep 60
-# printf "\nSubmitting KSQL queries via curl to the ksqlDB REST endpoint\n"
-# printf "\tSee https://docs.ksqldb.io/en/latest/developer-guide/api/ for more information\n"
-# while read ksqlCmd; do # from statements-cloud.sql
-	# response=$(curl -w "\n%{http_code}" -X POST $KSQLDB_ENDPOINT/ksql \
-	       # -H "Content-Type: application/vnd.ksql.v1+json; charset=utf-8" \
-	       # -u $KSQLDB_BASIC_AUTH_USER_INFO \
-	       # --silent \
-	       # -d @<(cat <<EOF
-	# {
-	  # "ksql": "$ksqlCmd",
-	  # "streamsProperties": {
-			# "ksql.streams.auto.offset.reset":"earliest",
-			# "ksql.streams.cache.max.bytes.buffering":"0"
-		# }
-	# }
-# EOF
-	# ))
-	# echo "$response" | {
-	  # read body
-	  # read code
-	  # if [[ "$code" -gt 299 ]];
-	    # then print_code_error -c "$ksqlCmd" -m "$(echo "$body" | jq .message)"
-	    # else print_code_pass  -c "$ksqlCmd" -m "$(echo "$body" | jq -r .[].commandStatus.message)"
-	  # fi
-	# }
-# sleep 3;
-# done < statements-cloud.sql
-# printf "\nConfluent Cloud ksqlDB ready\n"
+echo -e "\nSleeping 60 seconds\n"
+sleep 60
+printf "\nSubmitting KSQL queries via curl to the ksqlDB REST endpoint\n"
+printf "\tSee https://docs.ksqldb.io/en/latest/developer-guide/api/ for more information\n"
+while read ksqlCmd; do # from statements-cloud.sql
+  response=$(curl -w "\n%{http_code}" -X POST $KSQLDB_ENDPOINT/ksql \
+       -H "Content-Type: application/vnd.ksql.v1+json; charset=utf-8" \
+	       -u $KSQLDB_BASIC_AUTH_USER_INFO \
+	       --silent \
+	       -d @<(cat <<EOF
+	{
+	  "ksql": "$ksqlCmd",
+	  "streamsProperties": {
+			"ksql.streams.auto.offset.reset":"earliest",
+			"ksql.streams.cache.max.bytes.buffering":"0"
+		}
+	}
+EOF
+	))
+	echo "$response" | {
+	  read body
+	  read code
+	  if [[ "$code" -gt 299 ]];
+	    then print_code_error -c "$ksqlCmd" -m "$(echo "$body" | jq .message)"
+	    else print_code_pass  -c "$ksqlCmd" -m "$(echo "$body" | jq -r .[].commandStatus.message)"
+	  fi
+	}
+sleep 3;
+done < statements-cloud.sql
+printf "\nConfluent Cloud ksqlDB ready\n"
 
 printf "\nLocal client configuration file written to $CONFIG_FILE\n\n"
 
@@ -187,4 +187,3 @@ printf "====== Verify\n"
 
 printf "\nConfluent Cloud ksqlDB and the fully managed Datagen Source Connectors are running and accruing charges. To destroy this demo and its Confluent Cloud resources->\n"
 printf "\t./stop-cloud.sh $CONFIG_FILE\n\n"
-
