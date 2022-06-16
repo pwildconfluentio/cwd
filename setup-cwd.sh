@@ -178,6 +178,13 @@ sleep 3;
 done < statements-cloud.sql
 printf "\nConfluent Cloud ksqlDB ready\n"
 
+printf "\nStarting a local instance of Splunk Enterprise within Docker\n"
+sudo docker-compose up -d
+echo -e "\nSleeping 60 seconds\n"
+sleep 60
+printf "\nValidate that there are no errors within Docker\n"
+sudo docker-compose ps
+
 printf "\nLocal client configuration file written to $CONFIG_FILE\n\n"
 
 printf "====== Verify\n"
