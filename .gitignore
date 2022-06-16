@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+./bin/confluent
+./filebeat-8.2.2-amd64.deb
+./wordle.conf
+./delta-configs/*
+./stack-configs/*
+./wordle.conf
+
