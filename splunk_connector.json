@@ -1,0 +1,21 @@
+{
+  "name": "SplunkWordleSinkConnector
+  
+  ",
+  "config": {
+    "topics": "abandoned_games, first_guesses, game, guess-change, guesses, losses-by-user, lost-games, max-win-streak, registrations, registrations_obfuscated, wins-by-user, won-games, wordle-web-log"
+    "input.data.format": "JSON",
+    "connector.class": "SplunkSink",
+    "name": "SplunkSinkConnector_0",
+    "kafka.auth.mode": "KAFKA_API_KEY",
+    "splunk.hec.uri": "https://wordle.holobyte.com.au:8088",
+    "splunk.hec.token": "9b0d7db8-b732-4aef-9ea5-b732e20e8468",
+    "splunk.hec.ssl.validate.certs": "false",
+    "splunk.indexes": "confluent",
+    "splunk.sources": "abandoned_games,first_guesses,game,guess-change,guesses,losses-by-user,lost-games,max-win-streak,registrations,registrations_obfuscated,wins-by-user,won-games,wordle-web-log",
+    "splunk.hec.raw": "false",
+    "splunk.hec.use.record.timestamp": "true",
+    "splunk.hec.json.event.formatted": "false",
+    "tasks.max": "1"
+  }
+}
