@@ -9,14 +9,10 @@ services:
     environment:
       - SPLUNK_START_ARGS=--accept-license
       - SPLUNK_PASSWORD=Password1
-      - SPLUNK_APPS_URL=https://raw.githubusercontent.com/pwildconfluentio/cwd/main/splunkapps/cwd-splunk-app.tgz,https://raw.githubusercontent.com/pwildconfluentio/cwd/main/splunkapps/wordcloud-custom-visualization_111.tgz
+      - SPLUNK_APPS_URL=./splunkapps/cwd-splunk-app.tgz,./splunkapps/wordcloud-custom-visualization_111.tgz
     ports:
       - 8000:8000
       - 8088:8088
-    conf:
-      - key: web
-        value: 
-          directory: /opt/splunk/etc/system/local
-          content:
-            settings:
-              root_endpoint: /splunk
+    volumes:
+      - ./default.yml:/tmp/defaults/default.yml
+
