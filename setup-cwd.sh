@@ -16,7 +16,7 @@ QUIET="${QUIET:-false}"
 # Install required packages
 
 sudo apt-get update
-sudo apt-get install -q -y jq apache2 python3-pip libapache2-mod-wsgi-py3 python3-confluent-kafka python3-flask python3-flask-cors python3-werkzeug python3-rjsmin python3-rcssmin python3-requests certbot python3-certbot-apache docker-compose
+sudo apt-get install -q -y jq apache2 python3-pip libapache2-mod-wsgi-py3 python3-confluent-kafka python3-avro python3-flask python3-flask-cors python3-werkzeug python3-rjsmin python3-rcssmin python3-requests certbot python3-certbot-apache docker-compose
 curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.2.2-amd64.deb
 sudo dpkg -i filebeat-8.2.2-amd64.deb
 rm filebeat-8.2.2-amd64.deb
@@ -186,13 +186,15 @@ sleep 60
 printf "\nValidate that there are no errors within Docker\n"
 sudo docker-compose ps
 
+printf "\nAdding ccloud python config to Wordle app\n"
+sudo grep -v "^from\|//\|plugin\.library" delta_configs/python.delta /var/www/wsgi/cwd/kafka.config
+sudo sed -i -e '/###PRODUCER START###/r /var/www/wsgi/cwd/kafka.config' /var/www/wsgi/cwd/app.py
+sudo systemctl restart apache2
+
 printf "\nLocal client configuration file written to $CONFIG_FILE\n\n"
 
 printf "====== Verify\n"
 
-# printf "\nView messages in the topic 'pageviews' (Avro):\n\t";print_code "confluent kafka topic consume pageviews --value-format avro --print-key"
-# printf "\nView messages in the topic 'users' (Protobuf):\n\t";print_code "confluent kafka topic consume users --value-format protobuf --print-key"
-# printf "\nView messages in the topic backing the ksqlDB stream 'accomplished_female_readers' (JSON Schema):\n\t";print_code "confluent kafka topic list | grep ACCOMPLISHED_FEMALE_READERS | xargs -I {} confluent kafka topic consume {} --value-format jsonschema --print-key"
 
 printf "\nConfluent Cloud ksqlDB and the fully managed Datagen Source Connectors are running and accruing charges. To destroy this demo and its Confluent Cloud resources->\n"
 printf "\t./stop-cloud.sh $CONFIG_FILE\n\n"
