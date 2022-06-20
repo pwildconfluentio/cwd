@@ -29,7 +29,7 @@ sudo chown -R www-data:www-data /var/www/wsgi
 sudo a2ensite wordle
 sudo a2enmod rewrite proxy proxy_http
 sudo systemctl reload apache2
-# sudo certbot --non-interactive --apache --agree-tos -m pwild@confluent.io -d w2.holobyte.com.au
+sudo certbot --non-interactive --apache --agree-tos -m $YOUREMAIL -d $WEBHOSTNAME
 
 
 # Install Confluent CLI
