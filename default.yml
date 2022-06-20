@@ -1,0 +1,10 @@
+# default.yml
+splunk:
+  conf:
+    - key: web
+      value:
+        directory: /opt/splunk/etc/system/local
+        content:
+          settings:
+            root_endpoint: /splunk
+
