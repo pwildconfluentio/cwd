@@ -187,9 +187,18 @@ printf "\nValidate that there are no errors within Docker\n"
 sudo docker-compose ps
 
 printf "\nAdding ccloud python config to Wordle app\n"
-sudo grep -v "^from\|//\|plugin\.library" delta_configs/python.delta /var/www/wsgi/cwd/kafka.config
+sudo tee -a grep -v "^from\|//\|plugin\.library" delta_configs/python.delta /var/www/wsgi/cwd/kafka.config
 sudo sed -i -e '/###PRODUCER START###/r /var/www/wsgi/cwd/kafka.config' /var/www/wsgi/cwd/app.py
+sudo sh -c "cd /var/www/wsgi/cwd && python3 init.py && chown -R www-data:www-data ."
 sudo systemctl restart apache2
+
+printf "\nConfiguring filebeat to send to CC\n"
+. ./delta-configs/env.delta
+sudo cp filebeat.yml /etc/filebeat/filebeat.yml
+sudo sed -i "s:###BOOTSTRAP###:$BOOTSTRAP_SERVERS:" /etc/filebeat/filebeat.yml
+sudo sed -i "s:###USERNAME###:$CLOUD_KEY:" /etc/filebeat/filebeat.yml
+sudo sed -i "s:###PASSWORD###:$CLOUD_SECRET:" /etc/filebeat/filebeat.yml
+sudo systemctl restart filebeat
 
 printf "\nLocal client configuration file written to $CONFIG_FILE\n\n"
 

@@ -182,10 +182,10 @@ setup.template.settings:
 
 output.kafka:
   # initial brokers for reading cluster metadata
-  hosts: ["pkc-ldvj1.ap-southeast-2.aws.confluent.cloud:9092"]
+  hosts: ["###BOOTSTRAP###"]
   ssl.enabled: yes
-  username: 'RGKQOKDTN7MTF5YD'
-  password: 'CAzQAztu/p3iyjjl+Zs3JxDwycHW2KjxcbpDl91fa7hISfGWgn0WZl79QTIQmDoy'
+  username: '###USERNAME###'
+  password: '###PASSWORD###'
 
   # message topic selection + partitioning
   topic: 'wordle-web-log'

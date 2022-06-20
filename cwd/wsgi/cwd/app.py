@@ -9,7 +9,6 @@ from random import seed
 from random import randint
 
 from confluent_kafka import Producer, KafkaError
-import ccloud_lib
 
 
 from utils import set_finished, get_answer, word_is_valid, id_or_400, get_answer_info
@@ -17,9 +16,6 @@ from sql import get_sql
 import datetime
 
 here = os.path.dirname(__file__)
-
-config_file =  os.path.join(here, "confluent.config")
-conf = ccloud_lib.read_ccloud_config(config_file)
 
 # Load Confluent ads
 ad_file = os.path.join(here, "adcontent.txt")
@@ -29,21 +25,14 @@ with open(ad_file, encoding="utf8") as adfile:
     addata = [ad.rstrip() for ad in addata]
 
 # Create Producer instance
-producer_conf = ccloud_lib.pop_schema_registry_params_from_config(conf)
-producer = Producer(producer_conf)
+###PRODUCER START###
+###PRODUCER END###
 
 
-# Create topic if needed for registrations
+# Define topic names
 registrations = "registrations"
-ccloud_lib.create_topic(conf, registrations)
-
-# Create topic if needed for guesses
 guesstopic = "guesses"
-ccloud_lib.create_topic(conf, guesstopic)
-
-# Create topic if needed for game
 game = "game"
-ccloud_lib.create_topic(conf, game)
 
 def acked(err, msg):
     if err is not None:
