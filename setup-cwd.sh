@@ -129,13 +129,13 @@ print_pass "Topics created"
 # sleep 30
 
 printf "\n====== Setting up ksqlDB\n"
-
+date
 # Pre-flight check of Confluent Cloud credentials specified in $CONFIG_FILE
-MAX_WAIT=720
+MAX_WAIT=1440
 printf "\n";print_process_start "Waiting up to $MAX_WAIT seconds for Confluent Cloud ksqlDB cluster to be UP"
 retry $MAX_WAIT ccloud::validate_ccloud_ksqldb_endpoint_ready $KSQLDB_ENDPOINT || exit 1
 print_pass "Confluent Cloud KSQL is UP"
-
+date
 printf "Obtaining the ksqlDB App Id\n"
 CMD="confluent ksql cluster list -o json | jq -r '.[].id'"
 ksqlDBAppId=$(eval $CMD) \
