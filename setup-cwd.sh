@@ -195,6 +195,7 @@ sudo systemctl restart apache2
 printf "\nConfiguring filebeat to send to CC\n"
 . ./delta_configs/env.delta
 sudo cp filebeat.yml /etc/filebeat/filebeat.yml
+sudo cp filebeat.apache.yml /etc/filebeat/modules.d/apache.yml
 sudo sed -i "s ###BOOTSTRAP### $BOOTSTRAP_SERVERS " /etc/filebeat/filebeat.yml
 sudo sed -i "s ###USERNAME### $CLOUD_KEY " /etc/filebeat/filebeat.yml
 sudo sed -i "s ###PASSWORD### $CLOUD_SECRET " /etc/filebeat/filebeat.yml

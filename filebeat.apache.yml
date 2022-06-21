@@ -1,0 +1,28 @@
+# Module: apache
+# Docs: https://www.elastic.co/guide/en/beats/filebeat/8.2/filebeat-module-apache.html
+
+- module: apache
+  # Access logs
+  access:
+    enabled: true
+    var.paths: ["/var/log/apache2/wordle.log*"]
+    fields:
+      source: wordle-web-log
+
+
+    # Set custom paths for the log files. If left empty,
+    # Filebeat will choose the paths depending on your OS.
+    #var.paths:
+
+  # Error logs
+  error:
+    enabled: true
+    var.paths: ["/var/log/apache2/wordle.error*"]
+    fields:
+      source: wordle-web-error
+
+
+    # Set custom paths for the log files. If left empty,
+    # Filebeat will choose the paths depending on your OS.
+    #var.paths:
+
