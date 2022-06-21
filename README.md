@@ -2,7 +2,7 @@
 
 # Overview
 
-The Confluent Platform Quickstart demo is the automated version of the [Confluent Platform Quickstart](https://docs.confluent.io/platform/current/quickstart/index.html?utm_source=github&utm_medium=demo&utm_campaign=ch.examples_type.community_content.cp-quickstart)
+The Confluent Wordle Demo CWD
 
 ![image](images/quickstart.png)
 
