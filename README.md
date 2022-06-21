@@ -4,7 +4,7 @@
 
 The Confluent Wordle Demo CWD
 
-![image](images/Wordle demo Image.jpg)
+![image](images/WordleDemoImage.jpg)
 
 ## Additional Examples
 
