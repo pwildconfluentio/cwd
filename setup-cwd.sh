@@ -208,10 +208,6 @@ sleep 3;
 done < statements-cloud.sql
 printf "\nConfluent Cloud ksqlDB ready\n"
 
-printf "\nStarting a local instance of Splunk Enterprise within Docker\n"
-sudo docker-compose up -d
-echo -e "\nSleeping 60 seconds\n"
-sleep 60
 printf "\nValidate that there are no errors within Docker\n"
 sudo docker-compose ps
 
@@ -222,7 +218,6 @@ sudo sh -c 'cd /var/www/wsgi/cwd && python3 init.py && chown -R www-data:www-dat
 sudo systemctl restart apache2
 :
 printf "\nConfiguring filebeat to send to CC\n"
-. ./delta_configs/env.delta
 sudo cp filebeat.yml /etc/filebeat/filebeat.yml
 sudo cp filebeat.apache.yml /etc/filebeat/modules.d/apache.yml
 sudo sed -i "s ###BOOTSTRAP### $BOOTSTRAP_SERVERS " /etc/filebeat/filebeat.yml
