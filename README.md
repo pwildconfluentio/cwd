@@ -64,7 +64,7 @@ If all goes well, once the script completes execution, everything should be setu
 
 You can get to the game by browsing to your URL
 
-I'll suggest you create a QR code to make it easier for people with mobile devices.
+I'd suggest you create a QR code to make it easier for people with mobile devices. The game does not render well for computer based screens.
 
 To log into Splunk to see the dashboards, browse to your URL/splunk
 
