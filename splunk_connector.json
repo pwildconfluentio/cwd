@@ -1,9 +1,7 @@
 {
-  "name": "SplunkWordleSinkConnector
-  
-  ",
+  "name": "SplunkWordleSinkConnector",
   "config": {
-    "topics": "abandoned_games, first_guesses, game, guess-change, guesses, losses-by-user, lost-games, max-win-streak, registrations, registrations_obfuscated, wins-by-user, won-games, wordle-web-log"
+    "topics": "abandoned_games,first_guesses,game,guess-change,guesses,losses-by-user,lost-games,max-win-streak,registrations,registrations_obfuscated,wins-by-user,won-games,wordle-web-log",
     "input.data.format": "JSON",
     "connector.class": "SplunkSink",
     "name": "SplunkWordleSinkConnector",

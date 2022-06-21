@@ -15,21 +15,32 @@ QUIET="${QUIET:-false}"
 
 # Install required packages
 
-sudo apt-get update
-sudo apt-get install -q -y jq apache2 python3-pip libapache2-mod-wsgi-py3 python3-confluent-kafka python3-avro python3-flask python3-flask-cors python3-werkzeug python3-rjsmin python3-rcssmin python3-requests certbot python3-certbot-apache docker-compose
-curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.2.2-amd64.deb
-sudo dpkg -i filebeat-8.2.2-amd64.deb
-rm filebeat-8.2.2-amd64.deb
-sudo docker-compose up -d
+printf "\nUpdating and installing required packages\n"
+CMD="sudo apt-get update && sudo apt-get install -q -y jq apache2 python3-pip libapache2-mod-wsgi-py3 python3-confluent-kafka python3-avro python3-flask python3-flask-cors python3-werkzeug python3-rjsmin python3-rcssmin python3-requests certbot python3-certbot-apache docker-compose"
+eval $CMD \
+  && print_code_pass -c "$CMD" \
+    || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3))
+
+
+printf "\nInstalling filebeat\n"
+CMD="curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.2.2-amd64.deb && sudo dpkg -i filebeat-8.2.2-amd64.deb && rm filebeat-8.2.2-amd64.deb"
+eval $CMD \
+  && print_code_pass -c "$CMD" \
+    || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3))
+
+printf "\nStaring local Splunk instance using docker-compose\n"
+CMD="sudo docker-compose up -d"
+eval $CMD \
+  && print_code_pass -c "$CMD" \
+    || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3))
+
+printf "\nSetting up website configuration\n"
 SEDCMD="s/===WEBHOSTNAME===/$WEBHOSTNAME/g"
-sed -e $SEDCMD cwd/apache2/sites-available/wordle.conf > wordle.conf
-sudo cp wordle.conf /etc/apache2/sites-available/
-sudo cp -r cwd/wsgi /var/www/wsgi
-sudo chown -R www-data:www-data /var/www/wsgi
-sudo a2ensite wordle
-sudo a2enmod rewrite proxy proxy_http
-sudo systemctl reload apache2
-sudo certbot --non-interactive --apache --agree-tos -m $YOUREMAIL -d $WEBHOSTNAME
+CMD="sed -e $SEDCMD cwd/apache2/sites-available/wordle.conf > wordle.conf && sudo cp wordle.conf /etc/apache2/sites-available/ && sudo cp -r cwd/wsgi /var/www/wsgi && sudo chown -R www-data:www-data /var/www/wsgi && sudo a2ensite wordle && sudo a2enmod rewrite proxy proxy_http && sudo systemctl reload apache2 && sudo certbot --non-interactive --apache --agree-tos -m $YOUREMAIL -d $WEBHOSTNAME"
+eval $CMD \
+  && print_code_pass -c "$CMD" \
+    || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3))
+
 
 
 # Install Confluent CLI
@@ -40,7 +51,7 @@ then
 	curl -sL --http1.1 https://cnfl.io/cli | sh -s -- latest
 fi
 export PATH=$PWD/bin:$PATH
-confluent login
+confluent login --save
 
 # Source library
 source utils/helper.sh
@@ -86,7 +97,7 @@ DELTA_CONFIGS_ENV=delta_configs/env.delta
 printf "\nSetting local environment based on values in $DELTA_CONFIGS_ENV\n"
 CMD="source $DELTA_CONFIGS_ENV"
 eval $CMD \
-    && print_code_pass -c "source $DELTA_CONFIGS_ENV" \
+  && print_code_pass -c "$CMD" \
     || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3))
 
 # false argument here means defer checking on ksqlDB to later in the script, to optimize time to run
@@ -94,17 +105,17 @@ ccloud::validate_ccloud_stack_up $CLOUD_KEY $CONFIG_FILE false || exit 1
 
 printf "\n";print_process_start "====== Pre-creating topics"
 
-CMD="confluent kafka topic create game"
+CMD="confluent kafka topic create game --partitions 1"
 $CMD &>"$REDIRECT_TO" \
   && print_code_pass -c "$CMD" \
   || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3)) 
 
-CMD="confluent kafka topic create guesses"
+CMD="confluent kafka topic create guesses --partitions 1"
 $CMD &>"$REDIRECT_TO" \
   && print_code_pass -c "$CMD" \
   || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3))
 
-CMD="confluent kafka topic create registrations"
+CMD="confluent kafka topic create registrations --partitions 1"
 $CMD &>"$REDIRECT_TO" \
   && print_code_pass -c "$CMD" \
   || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3))
@@ -116,17 +127,6 @@ $CMD &>"$REDIRECT_TO" \
 
 print_pass "Topics created"
  
-# printf "\n";print_process_start "====== Create fully-managed Datagen Source Connectors to produce sample data."
-# ccloud::create_connector connectors/ccloud-datagen-pageviews.json || exit 1
-# ccloud::create_connector connectors/ccloud-datagen-users.json || exit 1
-# ccloud::create_connector connectors/ccloud-datagen-transactions.json || exit 1
-# ccloud::create_connector connectors/ccloud-datagen-credit_cards.json || exit 1
-# ccloud::wait_for_connector_up connectors/ccloud-datagen-pageviews.json 300 || exit 1
-# ccloud::wait_for_connector_up connectors/ccloud-datagen-users.json 300 || exit 1
-# ccloud::wait_for_connector_up connectors/ccloud-datagen-transactions.json 300 || exit 1
-# ccloud::wait_for_connector_up connectors/ccloud-datagen-credit_cards.json 300 || exit 1
-# printf "\nSleeping 30 seconds to give the Datagen Source Connectors a chance to start producing messages\n"
-# sleep 30
 
 printf "\n====== Setting up ksqlDB\n"
 date
