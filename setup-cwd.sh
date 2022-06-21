@@ -13,6 +13,33 @@ QUIET="${QUIET:-false}"
   REDIRECT_TO="/dev/null" ||
   REDIRECT_TO="/dev/tty"
 
+echo " "
+echo "This script installs the Confluent Wordle Demo into the OS of the current system"
+echo "This demo has certain requirements"
+echo "1. A clean Ubuntu 20.04 or greater image"
+echo "2. 2 vCPU, 8GB memory and 20GB Disk (t2.large) - We will run Splunk locally in docker"
+echo "3. A static IP address and a resolvable A record for a domain that will work with letsencrypt."
+echo "   These must be setup before running this script"
+echo "4. The following variables defined in the file env.config:"
+echo "     - CLUSTER_CLOUD : $CLUSTER_CLOUD"
+echo "     - CLUSTER_REGION : $CLUSTER_REGION"
+echo "     - YOUREMAIL (for configuring letsencrypt) : $YOUREMAIL"
+echo "     - WEBHOSTNAME (the FQDN for the webserver) : $WEBHOSTNAME"
+echo " ----------"
+echo "If the above does not look correct, please edit the env.config file and then start again"
+echo " "
+echo "This demo will create Confluent Cloud resources. You will need a valid login to confluent cloud."
+echo "You will be prompted for this during the installation"
+echo " "
+while true; do
+    read -p "Do you wish to proceed? " yn
+    case $yn in
+        [Yy]* ) echo "Continuing..."; break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
 # Install required packages
 
 printf "\nUpdating and installing required packages\n"
