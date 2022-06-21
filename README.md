@@ -71,3 +71,25 @@ To log into Splunk to see the dashboards, browse to your URL/splunk
 Login creds are admin:Password1 (I will suggest you change this when you first login).
 
 The above image shows metrics observability in Grafana. This is easy to setup but requires an account and credentials for grafana.net. Configuration is performed on the grafana side after API keys are created. It is not automated within the script.
+
+# Note
+
+The confluent cli is installed into 
+```
+~/cwd/bin/
+```
+To use the cli, you will need to add this to your path
+```
+export PATH=~/cwd/bin:$PATH
+confluent login --save
+```
+
+To destroy the environment at completion of the demo, log into the host and run the following
+```
+cd ~/cwd
+export PATH=~/cwd/bin:$PATH
+confluent login --save
+./stop-cloud.sh stack-configs/java-service-account-XXXX
+```
+There should only be one config file in the stack-configs directory, hopefully matching your Confluent Cloud environment.
+
