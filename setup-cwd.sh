@@ -187,7 +187,7 @@ printf "\nValidate that there are no errors within Docker\n"
 sudo docker-compose ps
 
 printf "\nAdding ccloud python config to Wordle app\n"
-sudo sh -c 'grep -v "^from\|//\|plugin\.library" delta_configs/python.delta > /var/www/wsgi/cwd/kafka.config'
+sudo sh -c 'awk "/^producer = Producer/,/})/" delta_configs/python.delta | awk "!/(plugin|location|configuration)/" > /var/www/wsgi/cwd/kafka.config'
 sudo sed -i "/###PRODUCER START###/r /var/www/wsgi/cwd/kafka.config" /var/www/wsgi/cwd/app.py
 sudo sh -c 'cd /var/www/wsgi/cwd && python3 init.py && chown -R www-data:www-data .'
 sudo systemctl restart apache2
@@ -199,6 +199,14 @@ sudo sed -i "s ###BOOTSTRAP### $BOOTSTRAP_SERVERS " /etc/filebeat/filebeat.yml
 sudo sed -i "s ###USERNAME### $CLOUD_KEY " /etc/filebeat/filebeat.yml
 sudo sed -i "s ###PASSWORD### $CLOUD_SECRET " /etc/filebeat/filebeat.yml
 sudo systemctl restart filebeat
+
+printf "/nCreate Splunk Sink Managed Connector/n"
+sed -e "s ###USERNAME### $CLOUD_KEY " -e "s ###PASSWORD### $CLOUD_SECRET " -e "s ###WEBHOSTNAME### $WEBHOSTNAME " splunk_connector.json > connector.json
+CMD="confluent connect create --config connector.json"
+$CMD &>"$REDIRECT_TO" \
+  && print_code_pass -c "$CMD" \
+  || exit_with_error -c $? -n "$NAME" -m "$CMD" -l $(($LINENO -3)) 
+
 
 printf "\nLocal client configuration file written to $CONFIG_FILE\n\n"
 
