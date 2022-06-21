@@ -69,3 +69,5 @@ I'd suggest you create a QR code to make it easier for people with mobile device
 To log into Splunk to see the dashboards, browse to your URL/splunk
 
 Login creds are admin:Password1 (I will suggest you change this when you first login).
+
+The above image shows metrics observability in Grafana. This is easy to setup but requires an account and credentials for grafana.net. Configuration is performed on the grafana side after API keys are created. It is not automated within the script.
