@@ -13,6 +13,8 @@ QUIET="${QUIET:-false}"
   REDIRECT_TO="/dev/null" ||
   REDIRECT_TO="/dev/tty"
 
+source ./env.config
+
 echo " "
 echo "This script installs the Confluent Wordle Demo into the OS of the current system"
 echo "This demo has certain requirements"
