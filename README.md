@@ -1,19 +1,28 @@
-![image](../images/confluent-logo-300-2.png)
 
 # Overview
 
 The Confluent Wordle Demo CWD
 
+This demo is based on the New York Time Wordle game.
+The original game can be found here: 
+
+The demo re-uses the works of Tommy Dougiamas, a Computer Science student at UWA in Perth Western Austrlia (where I live!).
+His github repo is here: [exciteabletom/wordle-API](https://github.com/exciteabletom/wordle-API)
+
+The following changes were made to his code:
+* A Registration page was created to capture player details so a prize can be awarded
+* Kafka producer code was added to stream game play into a Confluent Cloud cluster
+* Removed the ability to share the game number you are playing (so you can't cheat)
+* Added links to https://developer.confluent.io 
+
 ![image](images/WordleDemoImage.jpg)
-
-## Additional Examples
-
-For additional examples that showcase streaming applications within an event streaming platform, please refer to [these demos](https://github.com/confluentinc/examples).
 
 # Prerequisites
 
-* [Common demo prerequisites](https://github.com/confluentinc/examples#prerequisites)
-* [Confluent Platform 7.0](https://www.confluent.io/download/?utm_source=github&utm_medium=demo&utm_campaign=ch.examples_type.community_content.cp-quickstart)
+* An appropriately sized virtual machine somewhere running Ubuntu 22.04
+* I'd suggest an AWS T2.large (2 CPU, 8GB & 20GB of Disk because we'll install Splunk for dashboarding)
+* A publicly routable IP address and a configured FQDNS A record that will work with Letsencrypt
+* An active Confluent Cloud login (the script will use the CLI to provision a Confluent Basic Cluster and setup everything) 
 
 # Run demo
 
