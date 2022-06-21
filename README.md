@@ -4,7 +4,7 @@
 The Confluent Wordle Demo (CWD)
 
 This demo is based on the New York Time Wordle game.
-The original game can be found here: https://www.nytimes.com/games/wordle/index.html
+The original game can be found here: [Wordle](https://www.nytimes.com/games/wordle/index.html)
 
 The demo re-uses the works of Tommy Dougiamas, a Computer Science student at UWA in Perth Western Austrlia (where I live!).
 His github repo is here: [exciteabletom/wordle-API](https://github.com/exciteabletom/wordle-API)
