@@ -15,16 +15,24 @@ The following changes were made to his code:
 * Removed the ability to share the game number you are playing (so you can't cheat)
 * Added links to https://developer.confluent.io 
 
+See below for how it hangs together. BY default, the demo sends data back to a Splunk Enterprise trial license on the same host using a Fully Managed Splunk Sink Connector within Confluent Cloud. You could configure this to to to a Splunk Cloud Trial if you prefer.
+
 ![image](images/WordleDemoImage.jpg)
 
 # Prerequisites
 
 * An appropriately sized virtual machine somewhere running Ubuntu 22.04
-* I'd suggest an AWS T2.large (2 CPU, 8GB & 20GB of Disk because we'll install Splunk for dashboarding)
+* I'd suggest an AWS T2.large or xlarge (2 CPU, 8GB & 20GB of disk because we'll install Splunk for dashboarding)
 * A publicly routable IP address and a configured FQDNS A record that will work with Letsencrypt
 * An active Confluent Cloud login (the script will use the CLI to provision a Confluent Basic Cluster and setup everything) 
 
-# Run demo
+# Installation
+
+Log into your ubuntu instance and pull down the git repo.
+```
+$> git clone https://github.com/pwildconfluentio/cwd.git
+'''
+
 
 ## Confluent Platform
 
